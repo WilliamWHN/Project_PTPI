@@ -22,7 +22,7 @@ try {
                 break;
             //pour se login
             case 'vue_login' :
-                login(@$_POST['login'], @$_POST['password']);
+                login(@$_POST['username'], @$_POST['password']);
                 break;
             //pour s'inscrire
             case 'vue_inscription' :
