@@ -36,4 +36,38 @@ function EncryptPassword($password)
     return $EncryptedPassword;
 }
 
+//fonction pour se s'inscrire
+function ToRegister($prenom, $nom, $username, $mail, $EncryptedPassword)
+{
+    $connexion = getDB();
+    $erreurinscription = "RAS";
+
+    $requetelog = "SELECT Username,Mail FROM users";
+
+    $prepare = $connexion->prepare($requetelog);
+    $prepare->execute();
+    $resultats1 = $prepare->fetchAll();
+
+
+    foreach ($resultats1 as $useremail) {
+        if (strtoupper($mail) == strtoupper($useremail['Mail'])) {
+            $erreurinscription = "email";
+            return $erreurinscription;
+        }
+        if ($username == $useremail['Username']) {
+            $erreurinscription = "user";
+            return $erreurinscription;
+        }
+    }
+
+    //Insertion des données de l'user
+    $requetelog2 = "INSERT into users (Username,Password,Nom,Prenom,Mail,Admin) VALUES(?,?,?,?,?,0);";
+    $prepare = $connexion->prepare($requetelog2);
+    $prepare->execute(array($username,$EncryptedPassword,$nom,$prenom,$mail));
+
+
+    return $erreurinscription;
+
+}
+
 ?>

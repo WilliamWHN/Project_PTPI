@@ -27,4 +27,32 @@ function login($login, $password)
 
 }
 
+function inscription($prenom, $nom, $username, $email, $password, $confpassword)
+{
+    if (!($prenom == "") && !($nom == "") && !($username == "") && !($email == "") && !($password == "") && !($confpassword == "")) {
+        if ($password == $confpassword) {
+            $EncryptedPassword = EncryptPassword($password);
+            $res = ToRegister($prenom, $nom, $username, $email, $EncryptedPassword);
+            if ($res == "email") {
+                $erreurinscription = 3;
+                require 'vue/vue_login.php';
+            } else if ($res == "user") {
+                $erreurinscription = 4;
+                require 'vue/vue_login.php';
+
+            } else {
+                require 'vue/vue_successregister.php';
+            }
+        } else {
+            $erreurinscription = 2;
+            require 'vue/vue_login.php';
+        }
+
+    } else {
+        $erreurinscription = 0;
+        require 'vue/vue_login.php';
+    }
+
+}
+
 ?>

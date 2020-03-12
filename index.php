@@ -26,7 +26,7 @@ try {
                 break;
             //pour s'inscrire
             case 'vue_inscription' :
-                inscription(@$_POST['prenomForm'], @$_POST['nomForm'], @$_POST['usernameForm'], @$_POST['emailForm'], @$_POST['confEmailForm'], @$_POST['passwordForm'], @$_POST['confPasswordForm']);
+                inscription(@$_POST['fisrt_name'], @$_POST['last_name'], @$_POST['email'], @$_POST['username'], @$_POST['password'], @$_POST['conf_password']);
                 break;
             default :
                 throw new Exception("Action non valide");
